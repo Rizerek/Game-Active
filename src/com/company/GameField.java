@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.classes.AttackType;
 import com.company.classes.CharacterClass;
 
 import javax.swing.*;
@@ -34,7 +35,14 @@ public class GameField extends JPanel {
         public void keyPressed(KeyEvent e) {
             super.keyPressed(e);
             int key = e.getKeyCode();
+            int range;
             for (CharacterClass player : players) {
+                if(player.getAttackType()== AttackType.PHYSICAL_RANGED||player.getAttackType()== AttackType.MAGICAL_RANGED)
+                {
+                    range = 40;
+                }else{
+                    range=0;
+                }
                 if (key == player.leftKey) {
                     player.left();
                 }
@@ -50,7 +58,7 @@ public class GameField extends JPanel {
                 if (key == player.leftAttackKey) {
                     player.setAttackLeftImage();
                     if (player.getX() >= Constants.CHARACTER_IMG_WIDTH) {
-                        int neighbourId = CharacterClass.occupiedCells[player.getX() - Constants.CHARACTER_IMG_WIDTH][player.getY()];
+                        int neighbourId = CharacterClass.occupiedCells[player.getX() - Constants.CHARACTER_IMG_WIDTH-range][player.getY()];
                         if (neighbourId > 0){
                             player.attack(players[neighbourId - 1]);
                         }
@@ -69,8 +77,8 @@ public class GameField extends JPanel {
                 }
                 if (key == player.rightAttackKey) {
                     player.setAttackRightImage();
-                    if (player.getX() <Constants.MAX_RIGHT_POSITION) {
-                        int neighbourId = CharacterClass.occupiedCells[player.getX() + Constants.CHARACTER_IMG_WIDTH][player.getY()];
+                    if (player.getX() < Constants.MAX_RIGHT_POSITION) {
+                        int neighbourId = CharacterClass.occupiedCells[player.getX() + Constants.CHARACTER_IMG_WIDTH+range][player.getY()];
                         if (neighbourId > 0){
                             player.attack(players[neighbourId - 1]);
                         }

@@ -17,26 +17,26 @@ public class Archer  extends CharacterClass {
     }
     @Override
     public void left() {
-        int newPositionX = this.getX() >= Constants.CHARACTER_IMG_WIDTH ? this.getX() - Constants.CHARACTER_IMG_WIDTH : Constants.MAX_RIGHT_POSITION;
+        int newPositionX = this.getX() > Constants.CHARACTER_IMG_WIDTH ? this.getX() - Constants.CHARACTER_IMG_WIDTH : 0;
         tryChangePosition(newPositionX, getY());
 
     }
 
     @Override
     public void right() {
-        int newPositionX = this.getX() < Constants.MAX_RIGHT_POSITION ? this.getX() + Constants.CHARACTER_IMG_WIDTH : 0;
+        int newPositionX = this.getX() < Constants.MAX_RIGHT_POSITION ? this.getX() + Constants.CHARACTER_IMG_WIDTH : Constants.MAX_RIGHT_POSITION;
         tryChangePosition(newPositionX, getY());
     }
 
     @Override
     public void up() {
-        int newPositionY = this.getY() < Constants.CHARACTER_IMG_HEIGHT ? Constants.MAX_RIGHT_POSITION : this.getY() - Constants.CHARACTER_IMG_HEIGHT;
+        int newPositionY = this.getY() > Constants.CHARACTER_IMG_HEIGHT ? this.getY() - Constants.CHARACTER_IMG_HEIGHT : 0;
         tryChangePosition(getX(), newPositionY);
     }
 
     @Override
     public void down() {
-        int newPositionY = this.getY() < Constants.MAX_RIGHT_POSITION ? this.getY() + Constants.CHARACTER_IMG_HEIGHT : 0;
+        int newPositionY = this.getY() < Constants.MAX_RIGHT_POSITION ? this.getY() + Constants.CHARACTER_IMG_HEIGHT : Constants.MAX_RIGHT_POSITION;
         tryChangePosition(getX(), newPositionY);
     }
     public void leftAttack() {

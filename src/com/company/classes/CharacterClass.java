@@ -64,6 +64,8 @@ public abstract class CharacterClass implements BaseClass {
         }
     }
 
+    public void rebirth(int xpos,int ypos){}
+
     public void setAttackType(AttackType attackType) {
         this.attackType = attackType;
     }
