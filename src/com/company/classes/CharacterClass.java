@@ -43,7 +43,7 @@ public abstract class CharacterClass implements BaseClass {
                     new java.util.TimerTask() {
                         @Override
                         public void run() {
-                            System.out.println("xx");
+
                             respawn();
                         }
                     }, 800
@@ -58,9 +58,17 @@ public abstract class CharacterClass implements BaseClass {
     }
     public void respawn(){
         this.healthPoints = 200;
-        this.tryChangePosition(Constants.MAX_RIGHT_POSITION,320);
-       // this.x = Constants.MAX_RIGHT_POSITION;
-       // this.y = 320;
+        int rand = (int) ((Math.random() * 4) + 1);
+
+        switch (rand)
+        {
+            case 1:this.tryChangePosition(Constants.MAX_RIGHT_POSITION-40,320);break;
+            case 2:this.tryChangePosition(Constants.MAX_RIGHT_POSITION,280);break;
+            case 3:this.tryChangePosition(Constants.MAX_RIGHT_POSITION-40,280);break;
+            case 4:this.tryChangePosition(Constants.MAX_RIGHT_POSITION,320);break;
+        }
+
+
 
     }
     public void setManaPoints(int manaPoints) {
