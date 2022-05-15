@@ -4,6 +4,7 @@ import com.company.Constants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Console;
 
 public abstract class CharacterClass implements BaseClass {
     public static int[][] occupiedCells = new int[Constants.WINDOW_WIDTH][Constants.WINDOW_HEIGHT];
@@ -35,8 +36,19 @@ public abstract class CharacterClass implements BaseClass {
     }
 
     public void setHealthPoints(int healthPoints) {
-        if (healthPoints < 0) {
+        if (healthPoints <= 0) {
             this.healthPoints = 0;
+            this.changePosition(374,374);
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            System.out.println("xx");
+                            respawn();
+                        }
+                    }, 800
+            );
+
         } else if (healthPoints > this.maxHealthPoints) {
             this.healthPoints = this.maxHealthPoints;
         }
@@ -44,7 +56,13 @@ public abstract class CharacterClass implements BaseClass {
             this.healthPoints = healthPoints;
         }
     }
+    public void respawn(){
+        this.healthPoints = 200;
+        this.tryChangePosition(Constants.MAX_RIGHT_POSITION,320);
+       // this.x = Constants.MAX_RIGHT_POSITION;
+       // this.y = 320;
 
+    }
     public void setManaPoints(int manaPoints) {
         if (manaPoints < 0) {
             this.manaPoints = 0;
@@ -223,6 +241,12 @@ public abstract class CharacterClass implements BaseClass {
         } else {
             reduceHealth(50);
         }
+    }
+    public void changePosition(int newX, int newY) {
+            occupiedCells[this.x][this.y] = 0;
+            this.x = newX;
+            this.y = newY;
+            //occupiedCells[this.x][this.y] = this.id;
     }
 
     private void reduceHealth(int amount) {
